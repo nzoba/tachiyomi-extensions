@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit
 
 class FusionScanlation : Madara("Fusion Scanlation", "https://fusionscanlation.com", "es", SimpleDateFormat("d 'de' MMMM 'de' yyyy", Locale("es"))) {
 
+    override val versionId = 2
+
     override val seriesTypeSelector = ".post-content_item:contains(Tipo) .summary-content"
     override val altNameSelector = ".post-content_item:contains(Nombre Alternativo) .summary-content"
     override val altName = "Nombre alternativo: "
