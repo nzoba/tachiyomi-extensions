@@ -42,6 +42,8 @@ class AsuraScansEn : MangaThemesia(
         .build()
 
     override val seriesDescriptionSelector = "div.desc p, div.entry-content p, div[itemprop=description]:not(:has(p))"
+    override val seriesArtistSelector = ".fmed b:contains(artist)+span, .infox span:contains(artist)"
+    override val seriesAuthorSelector = ".fmed b:contains(author)+span, .infox span:contains(author)"
 
     override val pageSelector = "div.rdminimal > img, div.rdminimal > p > img, div.rdminimal > a > img, div.rdminimal > p > a > img, " +
         "div.rdminimal > noscript > img, div.rdminimal > p > noscript > img, div.rdminimal > a > noscript > img, div.rdminimal > p > a > noscript > img"
