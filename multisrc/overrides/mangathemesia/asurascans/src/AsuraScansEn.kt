@@ -15,6 +15,7 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.Response
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
@@ -56,6 +57,22 @@ class AsuraScansEn : MangaThemesia(
 
     override fun fetchSearchManga(page: Int, query: String, filters: FilterList): Observable<MangasPage> {
         return super.fetchSearchManga(page, query, filters).tempUrlToPermIfNeeded()
+    }
+
+    override fun searchMangaRequest(page: Int, query: String, filters: FilterList): Request {
+        val request = super.searchMangaRequest(page, query, filters)
+        if (query.isBlank()) return request
+
+        val url = request.url.newBuilder()
+            .addPathSegment("page/$page/")
+            .removeAllQueryParameters("page")
+            .removeAllQueryParameters("title")
+            .addQueryParameter("s", query)
+            .build()
+
+        return request.newBuilder()
+            .url(url)
+            .build()
     }
 
     // Temp Url for manga/chapter
