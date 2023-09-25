@@ -196,7 +196,8 @@ open class Webtoons(
     open fun parseDetailsThumbnail(document: Document): String? {
         val picElement = document.select("#content > div.cont_box > div.detail_body")
         val discoverPic = document.select("#content > div.cont_box > div.detail_header > span.thmb")
-        return discoverPic.select("img").not("[alt='Representative image']").first()?.attr("src") ?: picElement.attr("style").substringAfter("url(")?.substringBeforeLast(")")
+        return picElement.attr("style").substringAfter("url(").substringBeforeLast(")")
+            .ifBlank { discoverPic.select("img").not("[alt='Representative image']").first()?.attr("src") }
     }
 
     override fun mangaDetailsParse(document: Document): SManga {
